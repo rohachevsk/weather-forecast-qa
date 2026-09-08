@@ -63,7 +63,7 @@
 | TC-008 | Пробелы вокруг `Kyiv` | Positive | ✅ PASS | Пробелы не препятствуют поиску |
 | TC-009 | Опечатка `Kyv` | Negative | ⚠️ PARTIAL | Поведение fuzzy search не определено |
 | TC-010 | Неправильная раскладка `Лншм` | Negative | ✅ PASS | Грейсфулл-обработка |
-| TC-011 | Локализованное название `Київ` | Positive | ❌ FAIL | **Bug #3 — High** |
+| TC-011 | Локализованное название `Київ` | Positive | ❌ FAIL | **Bug #1 — High** |
 | TC-012 | Смешанные языки `Kиїв` | Negative | ✅ PASS | Город не найден |
 | TC-013 | Цифры `Kyiv123` | Negative | ✅ PASS | Отображается `City not found` |
 | TC-014 | Эмодзи `Kyiv 🇺🇦` | Negative | ✅ PASS | UI остаётся стабильным |
