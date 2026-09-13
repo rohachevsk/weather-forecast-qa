@@ -85,4 +85,4 @@ The issue affects the following weather parameters:
 
 ## 🔗 Related Test Case
 
-**TC-024 — Точность: облачность, видимость и UV Index**
+[TC-024 — Точность: облачность, видимость и UV Index](../Test-Documentation/Test-Cases.md#tc-024-точность-облачность-видимость-и-uv-index-positive)
