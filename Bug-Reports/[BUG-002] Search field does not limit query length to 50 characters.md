@@ -48,4 +48,4 @@ The current implementation does not restrict the number of characters that can b
 
 ## 🔗 Related Test Case
 
-**TC-017 — Максимальная длина поискового запроса**
+[TC-017 — Проверка максимальной допустимой длины поискового запроса (Boundary Value)](../Test-Documentation/Test-Cases.md#tc-017-проверка-максимальной-допустимой-длины-поискового-запроса-boundary-value)
