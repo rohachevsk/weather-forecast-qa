@@ -42,4 +42,4 @@ Searching for the same city using the English name `Kyiv` works correctly, while
 
 ## 🔗 Related Test Case
 
-**TC-011 — Search for a city in different languages**
+[TC-011 — Поиск города на разных языках (Positive)](../Test-Documentation/Test-Cases.md#tc-011-поиск-города-на-разных-языках-positive)
