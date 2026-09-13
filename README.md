@@ -43,39 +43,22 @@ The testing scope covered the following features of the Weather Forecast applica
 
 ## 📂 Project Structure & QA Documentation
 
-All QA documentation is organized logically to reflect a professional testing environment. 
+Use the following links to open each QA artifact:
 
-```text
-Weather-Forecast-QA/
-├── README.md
-├── Test-Documentation/
-│   ├── [Scope.md](./Test-Documentation/Scope.md)
-│   ├── [Checklist.md](./Test-Documentation/Checklist.md)
-│   ├── [Test-Cases.md](./Test-Documentation/Test-Cases.md)
-│   ├── [Test-Execution-Report.md](./Test-Documentation/Test-Execution-Report.md)
-│   └── [Test-Summary.md](./Test-Documentation/Test-Summary.md)
-│
-├── Bug-Reports/
-│   ├── [BUG-001.md](./Bug-Reports/BUG-001.md)
-│   ├── [BUG-002.md](./Bug-Reports/BUG-002.md)
-│   ├── [BUG-003.md](./Bug-Reports/BUG-003.md)
-│   └── [BUG-004.md](./Bug-Reports/BUG-004.md)
-│
-├── Retest/
-│   ├── [Retest-Report.md](./Retest/Retest-Report.md)
-│   └── Screenshots/
-│       ├── BUG-001-retest.png
-│       ├── BUG-002-retest.png
-│       ├── BUG-003-retest-01.png
-│       ├── BUG-003-retest-02.png
-│       ├── BUG-003-retest-03.png
-│       ├── BUG-004-retest-01.png
-│       ├── BUG-004-retest-02.png
-│       └── BUG-004-retest-03.png
-└── Regression/
-    └── [Regression-Report.md](./Regression/Regression-Report.md)
+- [Scope](./Test-Documentation/Scope.md)
+- [Checklist](./Test-Documentation/Checklist.md)
+- [Test cases](./Test-Documentation/Test-Cases.md)
+- [Test execution report](./Test-Documentation/Test-Execution-Report.md)
+- [Test summary](./Test-Documentation/Test-Summary.md)
+- [Retest report](./Retest/Retest-Report.md)
+- [Regression report](./Regression/Regression-Report.md)
 
-```
+### Bug reports
+
+- [BUG-001 — Localized Ukrainian city search](./Bug-Reports/%5BBUG-001%5D%20Cannot%20find%20an%20existing%20city%20using%20the%20localized%20Ukrainian%20name%20%D0%9A%D0%B8%D1%97%D0%B2.md)
+- [BUG-002 — Search query length](./Bug-Reports/%5BBUG-002%5D%20Search%20field%20does%20not%20limit%20query%20length%20to%2050%20characters.md)
+- [BUG-003 — Language switching](./Bug-Reports/%5BBUG-003%5D%20%E2%80%94%20Buttons%203%20and%207%20remain%20in%20Russian%20after%20changing%20the%20interface%20language.md)
+- [BUG-004 — Current-hour weather metrics](./Bug-Reports/%5BBUG-004%5D%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md)
 
 ---
 
@@ -85,10 +68,10 @@ During the initial test execution, **4 defects** were identified, documented, an
 
 | Bug ID | Description | Severity | Priority | Related TC |
 | --- | --- | --- | --- | --- |
-| **[BUG-001](https://www.google.com/search?q=./Bug-Reports/BUG-001.md)** | **Cyrillic City Search:** App failed to find existing cities using Cyrillic (e.g., "Київ"). Latin versions worked correctly. | High | High | TC-011 |
-| **[BUG-002](https://www.google.com/search?q=./Bug-Reports/BUG-002.md)** | **Maximum Search Query Length:** Search field accepted ~1000 characters instead of the expected 50-character limit. | Medium | Medium | TC-017 |
-| **[BUG-003](https://www.google.com/search?q=./Bug-Reports/BUG-003.md)** | **Incorrect Localization:** Buttons 3 and 7 remained in Russian when switching interface languages. | Minor | Medium | TC-023 |
-| **[BUG-004](https://www.google.com/search?q=./Bug-Reports/BUG-004.md)** | **Incorrect Weather Data for Current Hour:** Cloudiness, Visibility, and UV Index displayed midnight (00:00) data instead of current hour data. | Major | High | TC-024 |
+| **[BUG-001](./Bug-Reports/%5BBUG-001%5D%20Cannot%20find%20an%20existing%20city%20using%20the%20localized%20Ukrainian%20name%20%D0%9A%D0%B8%D1%97%D0%B2.md)** | **Cyrillic City Search:** App failed to find existing cities using Cyrillic (e.g., "Київ"). Latin versions worked correctly. | High | High | TC-011 |
+| **[BUG-002](./Bug-Reports/%5BBUG-002%5D%20Search%20field%20does%20not%20limit%20query%20length%20to%2050%20characters.md)** | **Maximum Search Query Length:** Search field accepted ~1000 characters instead of the expected 50-character limit. | Medium | Medium | TC-017 |
+| **[BUG-003](./Bug-Reports/%5BBUG-003%5D%20%E2%80%94%20Buttons%203%20and%207%20remain%20in%20Russian%20after%20changing%20the%20interface%20language.md)** | **Incorrect Localization:** Buttons 3 and 7 remained in Russian when switching interface languages. | Minor | Medium | TC-023 |
+| **[BUG-004](./Bug-Reports/%5BBUG-004%5D%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md)** | **Incorrect Weather Data for Current Hour:** Cloudiness, Visibility, and UV Index displayed midnight (00:00) data instead of current hour data. | Major | High | TC-024 |
 
 ### 🔍 Highlight: Deep Defect Investigation (BUG-004)
 
