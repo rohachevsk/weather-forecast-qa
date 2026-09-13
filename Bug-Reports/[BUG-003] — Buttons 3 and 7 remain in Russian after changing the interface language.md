@@ -54,4 +54,4 @@ The issue affects only specific interface elements. The language switching funct
 
 ## 🔗 Related Test Case
 
-**TC-023 — Проверка локализации элементов интерфейса**
+[TC-023 — Проверка локализации элементов интерфейса (Positive)](../Test-Documentation/Test-Cases.md#tc-023-проверка-локализации-элементов-интерфейса-positive)
