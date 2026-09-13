@@ -64,20 +64,20 @@ Open-Meteo data was additionally used as a reference when validating weather dat
 | TC-008    | Search with leading and trailing spaces           | Positive      | ✅ PASS | Kyiv found successfully                                             |
 | TC-009    | Search with a typo                                | Negative      | ✅ PASS | `City not found` notification displayed                             |
 | TC-010    | Search using the wrong keyboard layout            | Negative      | ✅ PASS | `City not found` notification displayed                             |
-| TC-011    | Search using a localized city name                | Positive      | ❌ FAIL | `Київ` is not found — BUG-001                                       |
+| TC-011 | Search using a localized city name | Positive | ❌ FAIL | [BUG-001](../Bug-Reports/%5BBUG-001%5D%20Cannot%20find%20an%20existing%20city%20using%20the%20localized%20Ukrainian%20name%20%D0%9A%D0%B8%D1%97%D0%B2.md) |
 | TC-012    | Search using mixed Latin and Cyrillic characters  | Negative      | ✅ PASS | Application remains stable                                          |
 | TC-013    | Search using digits                               | Negative      | ✅ PASS | `City not found` notification displayed                             |
 | TC-014    | Search using emoji                                | Negative      | ✅ PASS | Application handles input without breaking                          |
 | TC-015    | Search using spaces only                          | Negative      | ✅ PASS | No search performed; application remains stable                     |
 | TC-016    | Minimum search query length                       | Boundary      | ✅ PASS | Search behavior corresponds to the defined input conditions         |
-| TC-017    | Maximum search query length                       | Boundary      | ❌ FAIL | Search field accepts more than 50 characters — BUG-002              |
+| TC-017 | Maximum search query length | Boundary | ❌ FAIL | [BUG-002](../Bug-Reports/%5BBUG-002%5D%20Search%20field%20does%20not%20limit%20query%20length%20to%2050%20characters.md) |
 | TC-018    | Display of the selected city and weather data     | UI            | ✅ PASS | City and weather information displayed correctly                    |
 | TC-019    | Weather data corresponds to the selected city     | Functional    | ✅ PASS | Weather data corresponds to the selected city                       |
 | TC-020    | `City not found` notification                     | UI / Negative | ✅ PASS | Notification displayed correctly                                    |
 | TC-021    | Previous city remains after a failed search       | Functional    | ✅ PASS | Previous weather data remains displayed                             |
 | TC-022    | Search for a partial city name using Enter        | Positive      | ✅ PASS | Partial city name successfully processed                            |
-| TC-023    | Interface localization                            | Localization  | ❌ FAIL | Buttons 3 and 7 remain in Russian — BUG-003                         |
-| TC-024 | Accuracy of current weather data | Data Accuracy | ❌ FAIL | [BUG-004](../Bug-Reports/BUG-004%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md) |
+| TC-023 | Interface localization | Localization | ❌ FAIL | [BUG-003](../Bug-Reports/%5BBUG-003%5D%20%E2%80%94%20Buttons%203%20and%207%20remain%20in%20Russian%20after%20changing%20the%20interface%20language.md) |
+| TC-024 | Accuracy of current weather data | Data Accuracy | ❌ FAIL | [BUG-004](../Bug-Reports/%5BBUG-004%5D%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md) |
 
 ---
 
@@ -199,7 +199,7 @@ The application does not find Kyiv when the city name is entered in Ukrainian.
 
 The same city can be successfully found using the Latin input `Kyiv`.
 
-**Bug:** [BUG-001](../Bug-Reports/BUG-001.md)
+**Bug:** [BUG-001](../Bug-Reports/%5BBUG-001%5D%20Cannot%20find%20an%20existing%20city%20using%20the%20localized%20Ukrainian%20name%20%D0%9A%D0%B8%D1%97%D0%B2.md)
 
 **Severity:** High
 **Priority:** High
@@ -270,7 +270,7 @@ The expected maximum query length is **50 characters**.
 
 The application accepts input exceeding the defined 50-character limit. During the initial test, a query containing 1000 characters could be entered into the search field.
 
-**Bug:** [BUG-002](../Bug-Reports/BUG-002.md)
+**Bug:** [BUG-002](../Bug-Reports/%5BBUG-002%5D%20Search%20field%20does%20not%20limit%20query%20length%20to%2050%20characters.md)
 
 **Severity:** Minor
 **Priority:** Medium
@@ -350,7 +350,7 @@ After switching the interface language, most interface elements are translated c
 
 However, **buttons 3 and 7 remain in Russian** when switching between Russian, English and Ukrainian.
 
-**Bug:** [BUG-003](../Bug-Reports/BUG-003.md)
+**Bug:** [BUG-003](../Bug-Reports/%5BBUG-003%5D%20%E2%80%94%20Buttons%203%20and%207%20remain%20in%20Russian%20after%20changing%20the%20interface%20language.md)
 
 **Severity:** Minor
 **Priority:** Medium
@@ -375,7 +375,7 @@ According to the Open-Meteo hourly data at the time of verification:
 
 The displayed values correspond to the beginning of the hourly dataset rather than the current hour.
 
-**Bug:** [BUG-004](../Bug-Reports/BUG-004.md)
+**Bug:** [BUG-004](../Bug-Reports/%5BBUG-004%5D%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md)
 
 **Severity:** Critical
 **Priority:** High
@@ -402,11 +402,3 @@ The identified defects were documented as:
 The initial test execution was completed on **08.09.2026**.
 
 ---
-
-# ➡️ Next Steps
-
-1. Fix the identified defects.
-2. Perform retesting of **BUG-001 — BUG-004**.
-3. Verify that the reported defects are no longer reproducible.
-4. Perform regression testing of the affected functionality.
-5. Prepare the final test summary.
