@@ -39,6 +39,8 @@ The city `Київ` is found successfully and the weather data is displayed. The
 
 **Status:** **PASS**
 
+![BUG-001 Retest](./Screenshots/BUG-001-retest.png)
+
 ---
 
 ### BUG-002 — Maximum Search Query Length
@@ -52,6 +54,8 @@ The search field should allow entering a maximum of 50 characters. Characters ex
 The search field correctly limits the input to 50 characters. The previously reported issue could not be reproduced.
 
 **Status:** **PASS**
+
+![BUG-002 Retest](./Screenshots/BUG-002-retest.png)
 
 ---
 
@@ -67,6 +71,11 @@ Buttons 3 and 7 are correctly translated when switching between Russian, English
 
 **Status:** **PASS**
 
+![BUG-003 Retest 01](./Screenshots/BUG-003-retest-01.png)
+
+![BUG-003 Retest 02](./Screenshots/BUG-003-retest-02.png)
+
+![BUG-003 Retest 03](./Screenshots/BUG-003-retest-03.png)
 ---
 
 ### BUG-004 — Weather Data Corresponds to the Current Hour
@@ -80,6 +89,11 @@ Cloudiness, Visibility and UV Index should correspond to the hourly weather data
 Cloudiness, Visibility and UV Index now correspond to the appropriate hourly data for the current hour. The previously reported issue could not be reproduced.
 
 **Status:** **PASS**
+
+![BUG-004 Retest 01](./Screenshots/BUG-004-retest-01.png)
+
+![BUG-004 Retest 02](./Screenshots/BUG-004-retest-02.png)
+
 
 ## Conclusion
 
