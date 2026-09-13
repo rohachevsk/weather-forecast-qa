@@ -1,439 +1,412 @@
+# 📋 Test Execution Report — Weather Forecast
 
-# 📋 Test Execution Report — Weather-Forecast
-
-**Модуль:** City Search  
-**Продукт:** Weather-Forecast  
-**Дата прогона:** 08.09.2026  
-**Тестировщик:** Rohachevsk  
-**Environment:** Web browser  
-**Test scope:** City Search functionality
-
-## 1. Цель тестирования
-
-Проверить функциональность поиска города и корректность отображения погодных данных при различных вариантах пользовательского ввода:
-
-- валидные и невалидные поисковые запросы;
-- частичные названия;
-- различные регистры и языки;
-- специальные символы, цифры и эмодзи;
-- пробелы;
-- граничные значения длины запроса;
-- обработку ошибок;
-- сохранение данных предыдущего города;
-- корректность отображения погодных данных.
-
-Тестирование выполнялось на основе тест-кейсов из `test-cases.md`.
-
-Дополнительно использовались анализ исходного кода и проверка ответов геокодера Open-Meteo для подтверждения отдельных результатов.
+**Module:** City Search
+**Product:** Weather Forecast
+**Test Date:** 08.09.2026
+**Tester:** Rohachevsk
+**Environment:** Windows 11, Chrome, Production
+**Test Scope:** City Search and related weather data validation
 
 ---
 
-## 2. Test Execution Summary
+# 🎯 Test Objective
 
-| Metric | Result |
-|---|---:|
-| Total Test Cases | 22 |
-| Passed | 20 |
-| Failed | 2 |
-| Partial / Needs clarification | 0 |
-| Blocked | 0 |
-| Confirmed Bugs | 2 |
+The purpose of this test execution was to verify the City Search functionality and related weather data displayed by the application.
 
-### Результат
+The following areas were covered:
 
-**20 PASS / 0 PARTIAL / 2 FAIL**
+* Valid and invalid city search
+* Partial city names
+* Case sensitivity
+* Cyrillic and Latin characters
+* Mixed character input
+* Special characters, digits and emoji
+* Leading/trailing spaces
+* Empty and whitespace-only input
+* Minimum and maximum search query length
+* Error handling
+* Previous city state after a failed search
+* Display of the selected city and weather data
+* Interface localization
+* Accuracy of selected weather data
 
-Основные обнаруженные дефекты:
-* **Bug #1** — Поиск города `Київ` (на кириллице) не работает.
-* **Bug #2** — Отсутствие реакции системы и сообщений об ошибке при вводе сверхдлинного поискового запроса.
+Testing was performed based on the test cases documented in `Test-Documentation/Test-Cases.md`.
 
----
-
-## 3. Test Case Results
-
-| TC | Test Case | Type | Result | Bug / Note |
-|---|---|---|---|---|
-| TC-001 | Поиск существующего города `Kyiv` | Positive | ✅ PASS | — |
-| TC-002 | Поиск несуществующего `Xyzqwerty123` | Negative | ✅ PASS | Отображается `City not found` |
-| TC-003 | Поиск города с несколькими словами `New York` | Positive | ✅ PASS | — |
-| TC-004 | Поиск частичного названия (выбор из списка) | Positive | ✅ PASS | Автокомплит работает корректно |
-| TC-005 | Поиск без учёта регистра `kYiV` | Positive | ✅ PASS | — |
-| TC-006 | Пустой поисковый запрос | Negative | ✅ PASS | Поиск не выполняется |
-| TC-007 | Специальные символы `@@$$!!` | Negative | ✅ PASS | Корректная обработка |
-| TC-008 | Пробелы вокруг `Kyiv` | Positive | ✅ PASS | Пробелы не препятствуют поиску |
-| TC-009 | Опечатка `Kyv` | Negative | ✅ PASS | Ожидаемо отображается `City not found` |
-| TC-010 | Неправильная раскладка `Лншм` | Negative | ✅ PASS | Система стабильна, ошибка обрабатывается |
-| TC-011 | Локализованное название `Київ` | Positive | ❌ FAIL | **Bug #1 — High** |
-| TC-012 | Смешанные языки `Kиїв` | Negative | ✅ PASS | Город не найден |
-| TC-013 | Цифры `Kyiv123` | Negative | ✅ PASS | Отображается `City not found` |
-| TC-014 | Эмодзи `Kyiv 🇺🇦` | Negative | ✅ PASS | UI остаётся стабильным |
-| TC-015 | Только пробелы `     ` | Negative | ✅ PASS | Поиск не выполняется |
-| TC-016 | Минимальная длина (1, 2, 3 символа) | Boundary | ✅ PASS | Поиск срабатывает от 3-х символов |
-| TC-017 | Длинный запрос: 1000 символов | Boundary | ❌ FAIL | **Bug #2 — Medium** |
-| TC-018 | Корректность отображения данных (UI) | UI | ✅ PASS | Вёрстка не ломается на разных экранах |
-| TC-019 | Погода именно выбранного города | Positive | ✅ PASS | Данные соответствуют Kyiv |
-| TC-020 | Отображение `City not found` | Negative | ✅ PASS | Toast отображается корректно |
-| TC-021 | Сохранение предыдущего города | Negative | ✅ PASS | Данные Kyiv не изменяются |
-| TC-022 | Поиск частичного названия (через Enter) | Positive | ✅ PASS | Выполняется корректный поиск подстроки |
-| TC-023 | Проверка локализации элементов интерфейса | Positive / UI | ❌ FAIL | BUG-003 — кнопки 3 и 7 не переводятся на английский и украинский |
-| TC-024 | Точность: облачность, видимость и UV | Accuracy / Data Validation | ❌ FAIL | BUG-004 — значения соответствуют 00:00, а не текущему часу |
-
+Open-Meteo data was additionally used as a reference when validating weather data accuracy.
 
 ---
 
-# 4. Detailed Results
+# 📊 Test Execution Summary
 
-## TC-001 — Поиск существующего города `Kyiv`
-
-**Result:** ✅ PASS
-
-Город `Kyiv` успешно найден. Отображается погодная информация для выбранного города.
-
----
-
-## TC-002 — Поиск несуществующего города
-
-**Test Data:** `Xyzqwerty123`
-
-**Result:** ✅ PASS
-
-При поиске несуществующего города отображается уведомление `City not found`. Интерфейс остаётся стабильным.
+| Metric                        | Result |
+| ----------------------------- | -----: |
+| Total Test Cases              |     24 |
+| Passed                        |     20 |
+| Failed                        |      4 |
+| Partial / Needs Clarification |      0 |
+| Blocked                       |      0 |
+| Confirmed Bugs                |      4 |
+| Pass Rate                     |  83.3% |
 
 ---
 
-## TC-003 — Поиск города с несколькими словами
+# 🧪 Test Case Results
 
-**Test Data:** `New York`
-
-**Result:** ✅ PASS
-
-Город `New York` успешно найден и отображается соответствующая погодная информация.
-
----
-
-## TC-004 — Поиск частичного названия (Выбор из списка)
-
-**Test Data:** `Kyi`
-
-**Result:** ✅ PASS  
-
-При вводе `Kyi` отображаются подсказки, включая `Kyiv`. При клике на `Kyiv` из списка поле автозаполняется, отображается корректная погода.
-
----
-
-## TC-005 — Поиск без учёта регистра
-
-**Test Data:** `kYiV`
-
-**Result:** ✅ PASS
-
-При вводе `kYiV` успешно найден город `Kyiv`. Регистр символов не препятствует поиску.
-
----
-
-## TC-006 — Пустой поисковый запрос
-
-**Test Data:** пустая строка
-
-**Result:** ✅ PASS
-
-При нажатии `Enter` с пустым полем поиск не выполняется. Интерфейс остаётся стабильным.
-
-**Note:** визуальное сообщение о необходимости ввода отсутствует. Отдельный дефект не создавался, поскольку соответствующее требование отсутствует.
+| Test Case | Description                                       | Type          | Result | Notes                                                               |
+| --------- | ------------------------------------------------- | ------------- | ------ | ------------------------------------------------------------------- |
+| TC-001    | Search for a valid city                           | Positive      | ✅ PASS | Kyiv found successfully                                             |
+| TC-002    | Search for a non-existent city                    | Negative      | ✅ PASS | `City not found` notification displayed                             |
+| TC-003    | Search for a multi-word city                      | Positive      | ✅ PASS | New York found successfully                                         |
+| TC-004    | Search using a partial city name via autocomplete | Positive      | ✅ PASS | City found after selecting an autocomplete suggestion               |
+| TC-005    | Case-insensitive city search                      | Positive      | ✅ PASS | Kyiv found with mixed letter case                                   |
+| TC-006    | Search with an empty query                        | Negative      | ✅ PASS | No search performed; application remains stable                     |
+| TC-007    | Search using special characters                   | Negative      | ✅ PASS | Application handles input without breaking                          |
+| TC-008    | Search with leading and trailing spaces           | Positive      | ✅ PASS | Kyiv found successfully                                             |
+| TC-009    | Search with a typo                                | Negative      | ✅ PASS | `City not found` notification displayed                             |
+| TC-010    | Search using the wrong keyboard layout            | Negative      | ✅ PASS | `City not found` notification displayed                             |
+| TC-011    | Search using a localized city name                | Positive      | ❌ FAIL | `Київ` is not found — BUG-001                                       |
+| TC-012    | Search using mixed Latin and Cyrillic characters  | Negative      | ✅ PASS | Application remains stable                                          |
+| TC-013    | Search using digits                               | Negative      | ✅ PASS | `City not found` notification displayed                             |
+| TC-014    | Search using emoji                                | Negative      | ✅ PASS | Application handles input without breaking                          |
+| TC-015    | Search using spaces only                          | Negative      | ✅ PASS | No search performed; application remains stable                     |
+| TC-016    | Minimum search query length                       | Boundary      | ✅ PASS | Search behavior corresponds to the defined input conditions         |
+| TC-017    | Maximum search query length                       | Boundary      | ❌ FAIL | Search field accepts more than 50 characters — BUG-002              |
+| TC-018    | Display of the selected city and weather data     | UI            | ✅ PASS | City and weather information displayed correctly                    |
+| TC-019    | Weather data corresponds to the selected city     | Functional    | ✅ PASS | Weather data corresponds to the selected city                       |
+| TC-020    | `City not found` notification                     | UI / Negative | ✅ PASS | Notification displayed correctly                                    |
+| TC-021    | Previous city remains after a failed search       | Functional    | ✅ PASS | Previous weather data remains displayed                             |
+| TC-022    | Search for a partial city name using Enter        | Positive      | ✅ PASS | Partial city name successfully processed                            |
+| TC-023    | Interface localization                            | Localization  | ❌ FAIL | Buttons 3 and 7 remain in Russian — BUG-003                         |
+| TC-024 | Accuracy of current weather data | Data Accuracy | ❌ FAIL | [BUG-004](../Bug-Reports/BUG-004%20%E2%80%94%20Weather%20data%20shows%2000%3A00%20values.md) |
 
 ---
 
-## TC-007 — Специальные символы
+# 🔍 Detailed Test Case Results
 
-**Test Data:** `@@$$!!`
-
-**Result:** ✅ PASS
-
-Запрос корректно обрабатывается. Город не найден, отображается `City not found`. Сбоев интерфейса не обнаружено.
-
----
-
-## TC-008 — Пробелы в начале и конце запроса
-
-**Test Data:** `  Kyiv  `
-
-**Result:** ✅ PASS
-
-Пробелы в начале и конце запроса не препятствуют успешному поиску города `Kyiv`.
-
----
-
-## TC-009 — Поиск с опечаткой
-
-**Test Data:** `Kyv`
-
-**Result:** ✅ PASS
-
-Поиск с опечаткой корректно обрабатывается системой. Поскольку функция fuzzy search (умный поиск) не предусмотрена требованиями, система штатно возвращает `City not found`. Приложение стабильно.
-
----
-
-## TC-010 — Неправильная раскладка клавиатуры
-
-**Test Data:** `Лншм`
-
-**Result:** ✅ PASS
-
-Город не найден, отображается `City not found`. Интерфейс остаётся стабильным.
-
-Автоматическое преобразование неправильной раскладки отсутствует, однако такое поведение не является дефектом без соответствующего требования.
-
----
-
-## TC-011 — Локализованное название города
-
-**Test Data:** `Київ`
-
-**Result:** ❌ FAIL
-
-При вводе `Київ` город не найден.
-
-Отображается сообщение `City not found`, несмотря на то, что пользователь ищет существующий город — столицу Украины.
-
-При использовании `Kyiv` поиск работает корректно.
-
-**Bug:** Bug #1 — поиск города `Київ` не работает.
-
-**Severity:** High
-
----
-
-## TC-012 — Смешанные языки
-
-**Test Data:** `Kиїв`
-
-**Result:** ✅ PASS
-
-При использовании смешанного написания город не найден. Отображается `City not found`. Интерфейс остаётся стабильным.
-
-Автоматическая нормализация смешанного написания отсутствует, однако отдельного требования на такую функцию нет.
-
----
-
-## TC-013 — Цифры в поисковом запросе
-
-**Test Data:** `Kyiv123`
-
-**Result:** ✅ PASS
-
-Город не найден. Отображается `City not found`. Сбоев интерфейса не обнаружено.
-
----
-
-## TC-014 — Эмодзи в поисковом запросе
-
-**Test Data:** `Kyiv 🇺🇦`
-
-**Result:** ✅ PASS
-
-Запрос корректно обрабатывается. Город не найден, отображается `City not found`. Интерфейс остаётся стабильным.
-
----
-
-## TC-015 — Поисковый запрос только из пробелов
-
-**Test Data:** `     `
-
-**Result:** ✅ PASS
-
-Поиск не выполняется. Интерфейс остаётся стабильным.
-
-Запрос из пробелов обрабатывается аналогично пустому запросу.
-
----
-
-## TC-016 — Минимальная длина поискового запроса
-
-**Test Data:** `L`, `Lo`, `Lon`
-
-**Result:** ✅ PASS
-
-Проверка границы минимальной длины показала:
-
-- `L` (1 символ) — поиск не инициируется.
-- `Lo` (2 символа) — поиск не инициируется.
-- `Lon` (3 символа) — запрос отправляется, отображаются результаты (включая London).
-  
-Логика ограничения на минимальное количество символов работает корректно.
-
----
-
-## TC-017 — Максимальная длина поискового запроса
-
-**Test Data:** строка длиной 1000 символов
-
-**Result:** ❌ FAIL
-
-Система позволяет ввести 1000 символов, однако при нажатии на кнопку поиска или `Enter` ничего не происходит. 
-
-Запрос не обрабатывается, визуальный отклик (лоадер или сообщение об ошибке, например "Запрос слишком длинный") отсутствует. Пользователь остается в неведении относительно статуса своего действия (Silent Failure).
-
-**Bug:** Bug #2 — Отсутствие реакции системы и сообщений об ошибке при вводе сверхдлинного поискового запроса.
-
----
-
-## TC-018 — Отображение найденного города и погодных данных
-
-**Result:** ✅ PASS
-
-Визуальная проверка пройдена успешно. Карточка с погодой отображается корректно на десктопном и мобильном разрешениях.
-
----
-
-## TC-019 — Погода именно выбранного города
+## TC-001 — Search for a valid city
 
 **Test Data:** `Kyiv`
 
 **Result:** ✅ PASS
 
-После выбора `Kyiv` отображаются погодные данные именно выбранного города.
-
-Проверены город, координаты и часовой пояс `Europe/Kyiv`. Данные соответствуют выбранному местоположению.
+The system successfully finds Kyiv and displays the corresponding weather information.
 
 ---
 
-## TC-020 — Отображение сообщения об ошибке
+## TC-002 — Search for a non-existent city
 
 **Test Data:** `Xyzqwerty123`
 
 **Result:** ✅ PASS
 
-При поиске несуществующего города отображается уведомление `City not found` в нижней центральной части интерфейса.
-
-Toast не нарушает работу интерфейса и автоматически исчезает примерно через 2,2 секунды.
+The system does not return a city and displays the `City not found` notification.
 
 ---
 
-## TC-021 — Предыдущий город не подменяется после неудачного поиска
+## TC-003 — Search for a multi-word city
 
-**Test Data:**
-1. `Kyiv`
-2. `Xyzqwerty123`
+**Test Data:** `New York`
 
 **Result:** ✅ PASS
 
-После успешного поиска `Kyiv` выполнен поиск несуществующего города `Xyzqwerty123`.
-
-Отображается уведомление `City not found`. Данные ранее выбранного города `Kyiv` остаются без изменений. Погодная информация не подменяется некорректными данными.
+The system successfully finds New York and displays the corresponding weather information.
 
 ---
-## TC-022 — Поиск частичного названия (нажатие Enter)
+
+## TC-004 — Search using a partial city name via autocomplete
 
 **Test Data:** `Kyi`
 
 **Result:** ✅ PASS
 
-При вводе `Kyi` и нажатии `Enter` (без выбора подсказки из списка) выполняется отправка запроса. Система успешно находит город, содержащий данную подстроку.
+The system displays autocomplete suggestions. Selecting the corresponding city from the list successfully performs the search.
 
 ---
 
-## TC-023 — Проверка локализации элементов интерфейса
+## TC-005 — Case-insensitive city search
+
+**Test Data:** `kYiV`
+
+**Result:** ✅ PASS
+
+The system successfully finds Kyiv regardless of the letter case used in the search query.
+
+---
+
+## TC-006 — Search with an empty query
+
+**Test Data:** Empty input
+
+**Result:** ✅ PASS
+
+No search request is performed and the application remains in a stable state.
+
+No notification is displayed because no specific message for an empty query is required by the current test case.
+
+---
+
+## TC-007 — Search using special characters
+
+**Test Data:** `@@$$!!`
+
+**Result:** ✅ PASS
+
+The system does not return a city and remains stable without breaking the interface.
+
+---
+
+## TC-008 — Search with leading and trailing spaces
+
+**Test Data:** `  Kyiv  `
+
+**Result:** ✅ PASS
+
+The system successfully processes the query and finds Kyiv.
+
+---
+
+## TC-009 — Search with a typo
+
+**Test Data:** `Kyv`
+
+**Result:** ✅ PASS
+
+The system does not return a city and displays the `City not found` notification.
+
+Fuzzy search or automatic typo correction is not required by the current test case.
+
+---
+
+## TC-010 — Search using the wrong keyboard layout
+
+**Test Data:** `Лншм`
+
+**Result:** ✅ PASS
+
+The system does not return a city and displays the `City not found` notification.
+
+Automatic keyboard-layout conversion is not required by the current test case.
+
+---
+
+## TC-011 — Search using a localized city name
+
+**Test Data:** `Київ`
 
 **Result:** ❌ FAIL
 
-Проверена работа переключения языка интерфейса между русским, английским и украинским языками.
+The application does not find Kyiv when the city name is entered in Ukrainian.
 
-При переключении на английский или украинский язык текст кнопок **3** и **7** остаётся на русском языке.
+The same city can be successfully found using the Latin input `Kyiv`.
 
-Остальные проверенные элементы интерфейса переводятся в соответствии с выбранным языком.
-
-**Bug:** BUG-003 — кнопки 3 и 7 не переводятся при смене языка.
-
-**Severity:** Minor
-
-**Priority:** Medium
-
-
----
-
-## TC-024 — Точность: облачность, видимость и UV Index
-
-
-**Test Data:** `London`, текущий час `14:00`, `00:00`
-
-**Result:** ❌ FAIL
-
-При проверке в **14:15** значения облачности, видимости и UV Index на сайте не соответствуют данным Open-Meteo за текущий час.
-
-Фактически сайт отображает значения, соответствующие **00:00 текущего дня**.
-
-Пример:
-
-* **Cloudiness:** Open-Meteo `100%` → сайт `0%`
-* **Visibility:** Open-Meteo `19.5 km` → сайт `27.7 km`
-* **UV Index:** Open-Meteo `2.2` → сайт `0.0`
-
-Таким образом, погодные показатели отображаются за **00:00**, а не за текущий час.
-
-**Bug:** BUG-004 — погодные показатели отображаются за 00:00 вместо текущего часа.
-
-**Severity:** Critical
-
-**Priority:** High
-
-
-
----
-# 5. Findings
-
-## Confirmed Defect
-
-### Bug #1 — Поиск города `Київ` не работает
+**Bug:** [BUG-001](../Bug-Reports/BUG-001.md)
 
 **Severity:** High
-
-Пользователь не может найти существующий город `Kyiv`, используя его украинское написание `Київ`.
-
-При этом поиск `Kyiv` работает корректно.
-
-Подробный Bug Report будет оформлен отдельно.
+**Priority:** High
 
 ---
 
-## Test Design / Requirement Findings
+## TC-012 — Search using mixed Latin and Cyrillic characters
 
-В ходе выполнения тестов выявлены следующие моменты, которые требуют уточнения или улучшения тестовой документации:
+**Test Data:** `Kиїв`
 
-1. **TC-004** объединяет выбор подсказки и поиск через `Enter` — рекомендуется разделить.
-2. **TC-009** не имеет однозначного ожидаемого поведения для опечаток — необходимо уточнить поддержку fuzzy search.
-3. **TC-016** использует нестабильные тестовые данные — рекомендуется заменить их на детерминированные.
-4. **TC-017** не имеет определённого требования по максимальной длине поискового запроса.
-5. **TC-018** базовая проверка отображения выполнена на десктопе. Для полной оценки адаптивности необходимо провести дополнительное тестирование на мобильном и планшетном разрешениях.
+**Result:** ✅ PASS
 
-Эти пункты **не считаются подтверждёнными дефектами продукта**, пока не появится соответствующее требование.
+The application handles the mixed-character input without breaking and does not return an incorrect result.
 
 ---
 
-# 6. Conclusion
+## TC-013 — Search using digits
 
-В рамках тестирования модуля **City Search** выполнен прогон 21 тест-кейса.
+**Test Data:** `Kyiv123`
 
-**Результат:**
+**Result:** ✅ PASS
 
-- 16 — PASS;
-- 4 — PARTIAL;
-- 1 — FAIL;
-- 0 — BLOCKED.
-
-В ходе тестирования обнаружен **1 подтверждённый функциональный дефект высокого приоритета/критичности — Bug #1**, связанный с невозможностью поиска города `Київ`.
-
-Также выявлены несколько вопросов к требованиям и тестовым данным, которые необходимо уточнить для повышения качества тестового набора.
-
-После исправления Bug #1 рекомендуется выполнить **Retest**, а затем провести **Regression Testing** затронутого функционала поиска.
+The system does not return an incorrect city and displays the `City not found` notification.
 
 ---
 
-## 7. Next Steps
+## TC-014 — Search using emoji
 
-1. Оформить **Bug #1**.
-2. Оформить **Bug #2**.
-3. Оформить **Bug #3**.
-4. После исправлений выполнить **Retest**.
-5. Выполнить короткий **Regression Run**.
-6. Подготовить финальный `test-summary.md`.
-7. Оформить проект Weather-Forecast для GitHub/портфолио.
+**Test Data:** `Kyiv 🇺🇦`
+
+**Result:** ✅ PASS
+
+The application remains stable and successfully handles the input without breaking the interface.
+
+---
+
+## TC-015 — Search using spaces only
+
+**Test Data:** Spaces only
+
+**Result:** ✅ PASS
+
+No search request is performed and the application remains in a stable state.
+
+---
+
+## TC-016 — Minimum search query length
+
+**Test Data:** `K`, `Ky`, `Kyi`
+
+**Result:** ✅ PASS
+
+The application handles different query lengths according to the implemented search behavior:
+
+* With 1 character, no autocomplete suggestions are displayed and pressing `Enter` does not perform a search.
+* With 2 characters, autocomplete suggestions may be displayed when matching results are available, and pressing `Enter` can perform a search.
+* With 3 characters, autocomplete suggestions are displayed and pressing `Enter` successfully performs the search.
+
+---
+
+## TC-017 — Maximum search query length
+
+**Test Data:** Queries containing 49, 50, 51 and more characters
+
+**Result:** ❌ FAIL
+
+The expected maximum query length is **50 characters**.
+
+The application accepts input exceeding the defined 50-character limit. During the initial test, a query containing 1000 characters could be entered into the search field.
+
+**Bug:** [BUG-002](../Bug-Reports/BUG-002.md)
+
+**Severity:** Minor
+**Priority:** Medium
+
+---
+
+## TC-018 — Display of the selected city and weather data
+
+**Test Data:** `Kyiv`
+
+**Result:** ✅ PASS
+
+After a successful search, the application correctly displays the selected city and the corresponding weather information.
+
+The main weather information is displayed without visible UI errors.
+
+---
+
+## TC-019 — Weather data corresponds to the selected city
+
+**Test Data:** `Kyiv`
+
+**Result:** ✅ PASS
+
+The application displays weather data corresponding to the selected city.
+
+The displayed location and timezone are consistent with Kyiv (`Europe/Kyiv`).
+
+The displayed data was additionally compared with the Open-Meteo response.
+
+---
+
+## TC-020 — `City not found` notification
+
+**Test Data:** Invalid city name
+
+**Result:** ✅ PASS
+
+The application displays the `City not found` notification after an unsuccessful search.
+
+The notification appears at the bottom center of the interface and disappears automatically after approximately 2.2 seconds.
+
+---
+
+## TC-021 — Previous city remains after a failed search
+
+**Test Data:** First search: `Kyiv`
+Second search: Invalid city
+
+**Result:** ✅ PASS
+
+After a successful search for Kyiv, performing a search with an invalid city does not remove the previously displayed weather information.
+
+The application remains in a stable state.
+
+---
+
+## TC-022 — Search for a partial city name using Enter
+
+**Test Data:** `Kyi`
+
+**Result:** ✅ PASS
+
+When entering `Kyi` and pressing `Enter` without selecting an autocomplete suggestion, the application performs the search.
+
+The system successfully finds a city matching the entered substring.
+
+---
+
+## TC-023 — Interface localization
+
+**Test Data:** Russian, English and Ukrainian
+
+**Result:** ❌ FAIL
+
+After switching the interface language, most interface elements are translated correctly.
+
+However, **buttons 3 and 7 remain in Russian** when switching between Russian, English and Ukrainian.
+
+**Bug:** [BUG-003](../Bug-Reports/BUG-003.md)
+
+**Severity:** Minor
+**Priority:** Medium
+
+---
+
+## TC-024 — Accuracy of current weather data
+
+**Test Data:** London weather data comparison
+
+**Result:** ❌ FAIL
+
+At approximately **14:15**, the application displays weather values that correspond to **00:00** instead of the current hour.
+
+According to the Open-Meteo hourly data at the time of verification:
+
+| Parameter  | Expected |  Actual |
+| ---------- | -------: | ------: |
+| Cloudiness |     100% |      0% |
+| Visibility |  19.5 km | 27.7 km |
+| UV Index   |      2.2 |     0.0 |
+
+The displayed values correspond to the beginning of the hourly dataset rather than the current hour.
+
+**Bug:** [BUG-004](../Bug-Reports/BUG-004.md)
+
+**Severity:** Critical
+**Priority:** High
+
+---
+
+# 📝 Conclusion
+
+A total of **24 test cases** were executed during the initial test run.
+
+* **20 test cases — PASS**
+* **4 test cases — FAIL**
+* **0 test cases — PARTIAL**
+* **0 test cases — BLOCKED**
+* **4 defects were identified**
+
+The identified defects were documented as:
+
+* **BUG-001** — Cyrillic city search does not work correctly
+* **BUG-002** — Search field accepts more than 50 characters
+* **BUG-003** — Buttons 3 and 7 remain in Russian after changing the interface language
+* **BUG-004** — Cloudiness, Visibility and UV Index use data from 00:00 instead of the current hour
+
+The initial test execution was completed on **08.09.2026**.
+
+---
+
+# ➡️ Next Steps
+
+1. Fix the identified defects.
+2. Perform retesting of **BUG-001 — BUG-004**.
+3. Verify that the reported defects are no longer reproducible.
+4. Perform regression testing of the affected functionality.
+5. Prepare the final test summary.
